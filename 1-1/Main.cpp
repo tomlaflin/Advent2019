@@ -1,12 +1,5 @@
-#include <algorithm>
 #include <fstream>
 #include <iostream>
-
-std::uint32_t getRequiredFuelForMass(std::uint32_t mass)
-{
-	std::int32_t requiredFuel = static_cast<std::int32_t>(mass / 3) - 2;
-	return static_cast<std::uint32_t>(std::max(requiredFuel, 0));
-}
 
 int main()
 {
@@ -22,12 +15,10 @@ int main()
 			continue;
 		}
 
-		std::uint32_t requiredFuel = getRequiredFuelForMass(moduleMass);
-		do
-		{
-			totalRequiredFuel += requiredFuel;
-			requiredFuel = getRequiredFuelForMass(requiredFuel);
-		} while (requiredFuel > 0);
+		std::cout << "Module mass: " << moduleMass;
+		std::uint32_t requiredFuelForModule = moduleMass / 3 - 2;
+		std::cout << ", Fuel required: " << requiredFuelForModule << "\n";
+		totalRequiredFuel += requiredFuelForModule;
 	}
 
 	std::cout << "Total required fuel: " << totalRequiredFuel;
