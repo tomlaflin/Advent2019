@@ -5,21 +5,7 @@
 #include <string>
 #include <vector>
 
-std::vector<std::string> SplitStringByDelimiter(const std::string& string, const std::string& delimiter)
-{
-	std::vector<std::string> result;
-
-	size_t tokenStartPosition = 0;
-	while (tokenStartPosition < string.length())
-	{
-		size_t tokenEndPosition = string.find(delimiter, tokenStartPosition);
-		std::string token = string.substr(tokenStartPosition, tokenEndPosition - tokenStartPosition);
-		tokenStartPosition += token.length() + delimiter.length();
-		result.push_back(std::move(token));
-	}
-
-	return result;
-}
+#include "Utils/InputUtils.h"
 
 void ProcessValues(std::vector<std::uint64_t>& values)
 {
@@ -47,10 +33,8 @@ void ProcessValues(std::vector<std::uint64_t>& values)
 
 int main()
 {
-	std::ifstream inputStream("input.txt");
-	std::string inputString(std::istreambuf_iterator<char>(inputStream), {});
-
-	std::vector<std::string> tokenizedInput = SplitStringByDelimiter(inputString, ",");
+	std::string inputString = Utils::GetFileContentsAsString("input.txt");
+	std::vector<std::string> tokenizedInput = Utils::SplitStringByDelimiter(inputString, ",");
 	std::vector<std::uint64_t> values;
 	std::transform(
 		tokenizedInput.begin(),
